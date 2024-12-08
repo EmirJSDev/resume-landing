@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import Header from './components/layout/header/Header';
+import HeroSection from './components/sections/herosection/HeroSection';
+import AboutSection from './components/sections/aboutsection/AboutSection';
+import ExperienceSection from './components/sections/experiencesection/ExperienceSection';
+import SkillsSection from './components/sections/skillssection/SkillsSection';
+import ContactSection from './components/sections/contactsection/ContactSection';
+import Footer from './components/layout/footer/Footer';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App: React.FC = () => {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <Header />
+      <div id="hero">
+        <HeroSection />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div id="about">
+        <AboutSection />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div id="experience">
+        <ExperienceSection />
+      </div>
+      <div id="skills">
+        <SkillsSection />
+      </div>
+      <div id="contacts">
+        <ContactSection />
+      </div>
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
