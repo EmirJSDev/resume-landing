@@ -19,6 +19,14 @@ A modern and responsive resume landing page built with **React**, **TypeScript**
 - **Vite**: Fast and modern build tool for web projects.  
 - **Husky**: Pre-commit hooks for maintaining code quality.  
 - **ESLint & Prettier**: Code linting and formatting tools.
+  
+## 🖌️ Styling with Material-UI
+
+This project uses Material-UI for its components and styling. You can customize the theme by editing the theme provider in the application. For more details, visit the Material-UI documentation.
+
+🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests for improvements or new features.
 
 ## 📦 Installation
 
@@ -30,8 +38,4 @@ npm install
 npm run dev
 npm run build
 npm run preview
-🖌️ Styling with Material-UI
-This project uses Material-UI for its components and styling. You can customize the theme by editing the theme provider in the application. For more details, visit the Material-UI documentation.
 
-🤝 Contributing
-Contributions are welcome! Feel free to open issues or submit pull requests for improvements or new features.
