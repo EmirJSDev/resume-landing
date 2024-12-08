@@ -24,7 +24,7 @@ A modern and responsive resume landing page built with **React**, **TypeScript**
 
 This project uses Material-UI for its components and styling. You can customize the theme by editing the theme provider in the application. For more details, visit the Material-UI documentation.
 
-🤝 Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests for improvements or new features.
 
