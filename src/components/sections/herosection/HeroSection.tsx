@@ -4,9 +4,11 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useTranslation } from 'react-i18next';
+import useResponsive from '../../../hooks/useResponsive';
 
 const HeroSection: React.FC = () => {
   const { t } = useTranslation();
+  const { isMd } = useResponsive(); // Проверка разрешения для адаптивности
 
   return (
     <Box
@@ -14,7 +16,7 @@ const HeroSection: React.FC = () => {
         backgroundColor: '#121212',
         color: '#fff',
         padding: '4rem 0',
-        paddingTop: '10rem', // Добавлен красивый отступ сверху
+        paddingTop: '10rem',
       }}
     >
       <Container
@@ -63,14 +65,16 @@ const HeroSection: React.FC = () => {
         <Box
           sx={{
             display: 'flex',
+            flexDirection: isMd ? 'column' : 'row', // Вертикальное расположение на малых экранах
             justifyContent: 'center',
             alignItems: 'center',
-            gap: '1.5rem',
+            gap: isMd ? '1rem' : '1.5rem',
             marginTop: '1rem',
           }}
         >
+          {/* Instagram */}
           <Link
-            href="https://instagram.com"
+            href="https://www.instagram.com/emir_qtm/profilecard/?igsh=MXhsNGFraDlydzl6ZQ=="
             target="_blank"
             sx={{
               display: 'flex',
@@ -84,8 +88,9 @@ const HeroSection: React.FC = () => {
           >
             <InstagramIcon /> Instagram
           </Link>
+          {/* LinkedIn */}
           <Link
-            href="https://linkedin.com"
+            href="https://linkedin.com/in/emir-abdurakhimov-7b008225a"
             target="_blank"
             sx={{
               display: 'flex',
@@ -99,8 +104,9 @@ const HeroSection: React.FC = () => {
           >
             <LinkedInIcon /> LinkedIn
           </Link>
+          {/* GitHub */}
           <Link
-            href="https://github.com"
+            href="https://github.com/EmirJSDev"
             target="_blank"
             sx={{
               display: 'flex',

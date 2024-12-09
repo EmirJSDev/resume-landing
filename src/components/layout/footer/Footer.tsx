@@ -17,6 +17,7 @@ const Footer: React.FC = () => {
         textAlign: 'center',
       }}
     >
+      {/* Текст копирайта */}
       <Typography
         variant="body1"
         sx={{
@@ -34,31 +35,35 @@ const Footer: React.FC = () => {
           marginBottom: '1rem',
         }}
       >
+        {/* Иконка Instagram */}
         <IconButton
           component={Link}
-          href="https://instagram.com"
+          href="https://www.instagram.com/emir_qtm/profilecard/?igsh=MXhsNGFraDlydzl6ZQ=="
           target="_blank"
           sx={{ color: '#fff', '&:hover': { color: '#E4405F' } }}
         >
           <InstagramIcon />
         </IconButton>
+        {/* Иконка LinkedIn */}
         <IconButton
           component={Link}
-          href="https://linkedin.com"
+          href="https://linkedin.com/in/emir-abdurakhimov-7b008225a"
           target="_blank"
           sx={{ color: '#fff', '&:hover': { color: '#0077B5' } }}
         >
           <LinkedInIcon />
         </IconButton>
+        {/* Иконка GitHub */}
         <IconButton
           component={Link}
-          href="https://github.com"
+          href="https://github.com/EmirJSDev"
           target="_blank"
           sx={{ color: '#fff', '&:hover': { color: '#333' } }}
         >
           <GitHubIcon />
         </IconButton>
       </Box>
+      {/* Дополнительный текст */}
       <Typography
         variant="body2"
         sx={{

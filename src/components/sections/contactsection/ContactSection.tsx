@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Box, Typography, TextField, Button, Link, Container, CircularProgress } from '@mui/material';
+import TelegramIcon from '@mui/icons-material/Telegram';
+import EmailIcon from '@mui/icons-material/Email';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import TelegramIcon from '@mui/icons-material/Telegram';
-import EmailIcon from '@mui/icons-material/Email';
+import useResponsive from '../../../hooks/useResponsive';
 
 const ContactSection: React.FC = () => {
   const { t } = useTranslation();
+  const { isXs } = useResponsive(); // Проверяем разрешение меньше 400px
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
 
@@ -82,29 +84,50 @@ const ContactSection: React.FC = () => {
             gap: '1rem',
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <TelegramIcon sx={{ color: '#1DA1F2' }} />
-            <Typography
-              variant="body1"
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: isXs ? 'column' : 'row', // Вертикально при разрешении меньше 400px
+              alignItems: 'center',
+              gap: isXs ? '0.25rem' : '0.5rem',
+              textAlign: isXs ? 'center' : 'left', // Центрируем текст и элементы на маленьких экранах
+            }}
+          >
+            <TelegramIcon sx={{ color: '#1DA1F2', fontSize: isXs ? '3rem' : '2rem' }} />
+            <Link
+              href="https://t.me/Emir_Q"
+              target="_blank"
               sx={{
-                fontSize: '1.2rem',
-                color: '#ccc',
+                color: '#1DA1F2',
+                fontSize: '1rem',
+                textDecoration: 'none',
+                '&:hover': { textDecoration: 'underline' },
               }}
             >
-              {t('contact.telegram')}: <Link href="https://t.me/Emir_Q" target="_blank" sx={{ color: '#1DA1F2' }}>@Emir_Q</Link>
-            </Typography>
+              {t('contact.telegram')}: @Emir_Q
+            </Link>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <EmailIcon sx={{ color: '#fff' }} />
-            <Typography
-              variant="body1"
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: isXs ? 'column' : 'row', // Вертикально при разрешении меньше 400px
+              alignItems: 'center',
+              gap: isXs ? '0.25rem' : '0.5rem',
+              textAlign: isXs ? 'center' : 'left',
+            }}
+          >
+            <EmailIcon sx={{ color: '#fff', fontSize: isXs ? '3rem' : '2rem' }} />
+            <Link
+              href="mailto:abdurakhimovemir@gmail.com"
               sx={{
-                fontSize: '1.2rem',
-                color: '#ccc',
+                color: '#fff',
+                fontSize: '1rem',
+                textDecoration: 'none',
+                '&:hover': { textDecoration: 'underline' },
               }}
             >
-              {t('contact.email')}: <Link href="mailto:abdurakhimovemir@gmail.com" sx={{ color: '#fff' }}>abdurakhimovemir@gmail.com</Link>
-            </Typography>
+              {t('contact.email')}: abdurakhimovemir@gmail.com
+            </Link>
           </Box>
         </Box>
         <Box
