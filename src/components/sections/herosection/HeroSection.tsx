@@ -29,7 +29,7 @@ const HeroSection: React.FC = () => {
       >
         {/* Аватар */}
         <Avatar
-          src="/src/assets/images/avatar.JPG"
+          src="/assets/images/avatar.JPG"
           sx={{
             width: '200px',
             height: '200px',

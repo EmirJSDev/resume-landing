@@ -10,7 +10,7 @@ import useResponsive from '../../../hooks/useResponsive';
 
 const ContactSection: React.FC = () => {
   const { t } = useTranslation();
-  const { isXs } = useResponsive(); // Проверяем разрешение меньше 400px
+  const { isXs } = useResponsive();
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
 
@@ -34,7 +34,10 @@ const ContactSection: React.FC = () => {
       setLoading(true);
       setFeedback(null);
       try {
-        await axios.post('http://localhost:5000/contact', values);
+        // Изменяем URL для PHP
+        await axios.post('https://abdurakhimov.info/sendmail.php', values, {
+          headers: { 'Content-Type': 'application/json' },
+        });
         setFeedback(t('contact.form.success'));
         resetForm();
       } catch (error) {
@@ -87,10 +90,10 @@ const ContactSection: React.FC = () => {
           <Box
             sx={{
               display: 'flex',
-              flexDirection: isXs ? 'column' : 'row', // Вертикально при разрешении меньше 400px
+              flexDirection: isXs ? 'column' : 'row',
               alignItems: 'center',
               gap: isXs ? '0.25rem' : '0.5rem',
-              textAlign: isXs ? 'center' : 'left', // Центрируем текст и элементы на маленьких экранах
+              textAlign: isXs ? 'center' : 'left',
             }}
           >
             <TelegramIcon sx={{ color: '#1DA1F2', fontSize: isXs ? '3rem' : '2rem' }} />
@@ -110,7 +113,7 @@ const ContactSection: React.FC = () => {
           <Box
             sx={{
               display: 'flex',
-              flexDirection: isXs ? 'column' : 'row', // Вертикально при разрешении меньше 400px
+              flexDirection: isXs ? 'column' : 'row',
               alignItems: 'center',
               gap: isXs ? '0.25rem' : '0.5rem',
               textAlign: isXs ? 'center' : 'left',
