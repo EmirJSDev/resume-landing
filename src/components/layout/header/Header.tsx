@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { AppBar, Toolbar, Typography, Box, Button, Container, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTranslation } from "react-i18next";
 import { useMediaQuery, useTheme } from "@mui/material";
@@ -14,7 +24,7 @@ const scrollToSection = (id: string) => {
 const Header: React.FC = () => {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down(900)); // Проверка разрешения
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Используем breakpoint для мобильных устройств
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const toggleLanguage = async () => {
@@ -34,23 +44,23 @@ const Header: React.FC = () => {
     setAnchorEl(null);
   };
 
+  const navItems = [
+    { id: "about", label: t("header.about") },
+    { id: "experience", label: t("header.experience") },
+    { id: "skills", label: t("header.skills") },
+    { id: "contacts", label: t("header.contacts") },
+  ];
+
   return (
     <AppBar
       position="fixed"
       sx={{
         background: "#121212",
         boxShadow: "none",
-        zIndex: 10,
+        zIndex: theme.zIndex.drawer + 1,
       }}
     >
-      <Container
-        maxWidth={false}
-        sx={{
-          maxWidth: "970px",
-          margin: "0 auto",
-          padding: "0 1rem",
-        }}
-      >
+      <Container maxWidth="lg">
         <Toolbar
           sx={{
             display: "flex",
@@ -63,8 +73,8 @@ const Header: React.FC = () => {
             variant="h6"
             sx={{
               fontSize: {
-                xs: "1rem", // На маленьких экранах
-                sm: "1.25rem", // На больших экранах
+                xs: "1rem",
+                sm: "1.25rem",
               },
               fontWeight: "bold",
               color: "#fff",
@@ -82,83 +92,53 @@ const Header: React.FC = () => {
               <IconButton
                 edge="end"
                 color="inherit"
-                aria-controls="mobile-menu"
-                aria-haspopup="true"
+                aria-label="open menu"
                 onClick={handleMenuOpen}
               >
                 <MenuIcon />
               </IconButton>
               <Menu
-                id="mobile-menu"
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
+                keepMounted
               >
-                <MenuItem onClick={() => { handleMenuClose(); scrollToSection("about"); }}>
-                  {t("header.about")}
-                </MenuItem>
-                <MenuItem onClick={() => { handleMenuClose(); scrollToSection("experience"); }}>
-                  {t("header.experience")}
-                </MenuItem>
-                <MenuItem onClick={() => { handleMenuClose(); scrollToSection("skills"); }}>
-                  {t("header.skills")}
-                </MenuItem>
-                <MenuItem onClick={() => { handleMenuClose(); scrollToSection("contacts"); }}>
-                  {t("header.contacts")}
-                </MenuItem>
-                <MenuItem onClick={() => { handleMenuClose(); toggleLanguage(); }}>
+                {navItems.map((item) => (
+                  <MenuItem
+                    key={item.id}
+                    onClick={() => {
+                      handleMenuClose();
+                      scrollToSection(item.id);
+                    }}
+                  >
+                    {item.label}
+                  </MenuItem>
+                ))}
+                <MenuItem
+                  onClick={() => {
+                    handleMenuClose();
+                    toggleLanguage();
+                  }}
+                >
                   {t("header.switchTo")}
                 </MenuItem>
               </Menu>
             </>
           ) : (
-            <Box
-              sx={{
-                display: "flex",
-                gap: "2rem",
-              }}
-            >
-              {/* Навигация */}
-              <Button
-                sx={{
-                  color: "#fff",
-                  textTransform: "none",
-                  fontSize: "1rem",
-                }}
-                onClick={() => scrollToSection("about")}
-              >
-                {t("header.about")}
-              </Button>
-              <Button
-                sx={{
-                  color: "#fff",
-                  textTransform: "none",
-                  fontSize: "1rem",
-                }}
-                onClick={() => scrollToSection("experience")}
-              >
-                {t("header.experience")}
-              </Button>
-              <Button
-                sx={{
-                  color: "#fff",
-                  textTransform: "none",
-                  fontSize: "1rem",
-                }}
-                onClick={() => scrollToSection("skills")}
-              >
-                {t("header.skills")}
-              </Button>
-              <Button
-                sx={{
-                  color: "#fff",
-                  textTransform: "none",
-                  fontSize: "1rem",
-                }}
-                onClick={() => scrollToSection("contacts")}
-              >
-                {t("header.contacts")}
-              </Button>
+            <Box sx={{ display: "flex", gap: theme.spacing(3) }}>
+              {navItems.map((item) => (
+                <Button
+                  key={item.id}
+                  sx={{
+                    color: "#fff",
+                    textTransform: "none",
+                    fontSize: "1rem",
+                  }}
+                  onClick={() => scrollToSection(item.id)}
+                >
+                  {item.label}
+                </Button>
+              ))}
               <Button
                 sx={{
                   color: "#fff",

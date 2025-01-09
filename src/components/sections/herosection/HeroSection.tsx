@@ -8,13 +8,35 @@ import useResponsive from '../../../hooks/useResponsive';
 
 const HeroSection: React.FC = () => {
   const { t } = useTranslation();
-  const { isMd } = useResponsive(); // Проверка разрешения для адаптивности
+  const { isMd } = useResponsive();
+
+  // Список социальных ссылок
+  const socialLinks = [
+    {
+      href: 'https://www.instagram.com/emir_qtm/profilecard/?igsh=MXhsNGFraDlydzl6ZQ==',
+      icon: <InstagramIcon />,
+      label: 'Instagram',
+      hoverColor: '#E4405F',
+    },
+    {
+      href: 'https://linkedin.com/in/emir-abdurakhimov-7b008225a',
+      icon: <LinkedInIcon />,
+      label: 'LinkedIn',
+      hoverColor: '#0077B5',
+    },
+    {
+      href: 'https://github.com/EmirJSDev',
+      icon: <GitHubIcon />,
+      label: 'GitHub',
+      hoverColor: '#333',
+    },
+  ];
 
   return (
     <Box
       sx={{
-        backgroundColor: '#121212',
-        color: '#fff',
+        backgroundColor: '#121212', // Фиксированный фон
+        color: '#fff', // Основной цвет текста
         padding: '4rem 0',
         paddingTop: '10rem',
       }}
@@ -22,14 +44,14 @@ const HeroSection: React.FC = () => {
       <Container
         maxWidth={false}
         sx={{
-          maxWidth: '970px',
+          maxWidth: '970px', // Центрирование контейнера
           margin: '0 auto',
           textAlign: 'center',
         }}
       >
         {/* Аватар */}
         <Avatar
-          src="/assets/images/avatar.JPG"
+          src="/assets/images/avatar.webp"
           sx={{
             width: '200px',
             height: '200px',
@@ -65,61 +87,31 @@ const HeroSection: React.FC = () => {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: isMd ? 'column' : 'row', // Вертикальное расположение на малых экранах
+            flexDirection: isMd ? 'column' : 'row',
             justifyContent: 'center',
             alignItems: 'center',
             gap: isMd ? '1rem' : '1.5rem',
             marginTop: '1rem',
           }}
         >
-          {/* Instagram */}
-          <Link
-            href="https://www.instagram.com/emir_qtm/profilecard/?igsh=MXhsNGFraDlydzl6ZQ=="
-            target="_blank"
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              color: '#fff',
-              fontSize: '1rem',
-              gap: '0.5rem',
-              textDecoration: 'none',
-              '&:hover': { color: '#E4405F' },
-            }}
-          >
-            <InstagramIcon /> Instagram
-          </Link>
-          {/* LinkedIn */}
-          <Link
-            href="https://linkedin.com/in/emir-abdurakhimov-7b008225a"
-            target="_blank"
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              color: '#fff',
-              fontSize: '1rem',
-              gap: '0.5rem',
-              textDecoration: 'none',
-              '&:hover': { color: '#0077B5' },
-            }}
-          >
-            <LinkedInIcon /> LinkedIn
-          </Link>
-          {/* GitHub */}
-          <Link
-            href="https://github.com/EmirJSDev"
-            target="_blank"
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              color: '#fff',
-              fontSize: '1rem',
-              gap: '0.5rem',
-              textDecoration: 'none',
-              '&:hover': { color: '#333' },
-            }}
-          >
-            <GitHubIcon /> GitHub
-          </Link>
+          {socialLinks.map(({ href, icon, label, hoverColor }) => (
+            <Link
+              key={label}
+              href={href}
+              target="_blank"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                color: '#fff',
+                fontSize: '1rem',
+                gap: '0.5rem',
+                textDecoration: 'none',
+                '&:hover': { color: hoverColor },
+              }}
+            >
+              {icon} {label}
+            </Link>
+          ))}
         </Box>
       </Container>
     </Box>

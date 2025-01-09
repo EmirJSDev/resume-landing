@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Box, Typography, TextField, Button, Link, Container, CircularProgress } from '@mui/material';
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Link,
+  Container,
+  CircularProgress,
+} from '@mui/material';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import EmailIcon from '@mui/icons-material/Email';
 import { useFormik } from 'formik';
@@ -8,6 +16,13 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import useResponsive from '../../../hooks/useResponsive';
 
+// Типизация значений формы
+interface FormValues {
+  name: string;
+  email: string;
+  message: string;
+}
+
 const ContactSection: React.FC = () => {
   const { t } = useTranslation();
   const { isXs } = useResponsive();
@@ -15,15 +30,19 @@ const ContactSection: React.FC = () => {
   const [feedback, setFeedback] = useState<string | null>(null);
 
   const validationSchema = yup.object({
-    name: yup.string().required(`${t('contact.form.name')} ${t('contact.form.required')}`),
+    name: yup
+      .string()
+      .required(`${t('contact.form.name')} ${t('contact.form.required')}`),
     email: yup
       .string()
       .email(`${t('contact.form.email')} ${t('contact.form.invalid')}`)
       .required(`${t('contact.form.email')} ${t('contact.form.required')}`),
-    message: yup.string().required(`${t('contact.form.message')} ${t('contact.form.required')}`),
+    message: yup
+      .string()
+      .required(`${t('contact.form.message')} ${t('contact.form.required')}`),
   });
 
-  const formik = useFormik({
+  const formik = useFormik<FormValues>({
     initialValues: {
       name: '',
       email: '',
@@ -34,7 +53,6 @@ const ContactSection: React.FC = () => {
       setLoading(true);
       setFeedback(null);
       try {
-        // Изменяем URL для PHP
         await axios.post('https://abdurakhimov.info/sendmail.php', values, {
           headers: { 'Content-Type': 'application/json' },
         });
@@ -48,6 +66,40 @@ const ContactSection: React.FC = () => {
       }
     },
   });
+
+  // Функция для рендера полей формы с типизацией
+  const renderTextField = (
+    id: keyof FormValues, // Указание, что id соответствует ключам FormValues
+    label: string,
+    multiline = false,
+    rows = 1
+  ) => (
+    <TextField
+      fullWidth
+      id={id}
+      name={id}
+      label={label}
+      variant="outlined"
+      value={formik.values[id]} // Гарантируется, что id существует в formik.values
+      onChange={formik.handleChange}
+      onBlur={formik.handleBlur}
+      error={formik.touched[id] && Boolean(formik.errors[id])}
+      helperText={formik.touched[id] && formik.errors[id]}
+      multiline={multiline}
+      rows={rows}
+      sx={{
+        backgroundColor: '#1e1e1e',
+        borderRadius: '12px',
+        '& .MuiOutlinedInput-root': {
+          color: '#fff',
+          borderRadius: '12px',
+        },
+        '& .MuiFormLabel-root': {
+          color: '#ccc',
+        },
+      }}
+    />
+  );
 
   return (
     <Box
@@ -78,6 +130,8 @@ const ContactSection: React.FC = () => {
         >
           {t('contact.title')}
         </Typography>
+
+        {/* Контактные данные */}
         <Box
           sx={{
             marginBottom: '3rem',
@@ -87,52 +141,46 @@ const ContactSection: React.FC = () => {
             gap: '1rem',
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: isXs ? 'column' : 'row',
-              alignItems: 'center',
-              gap: isXs ? '0.25rem' : '0.5rem',
-              textAlign: isXs ? 'center' : 'left',
-            }}
-          >
-            <TelegramIcon sx={{ color: '#1DA1F2', fontSize: isXs ? '3rem' : '2rem' }} />
-            <Link
-              href="https://t.me/Emir_Q"
-              target="_blank"
+          {/* Контактные элементы (Telegram, Email) */}
+          {[{
+            icon: <TelegramIcon />,
+            href: 'https://t.me/Emir_Q',
+            text: t('contact.telegram') + ': @Emir_Q',
+          }, {
+            icon: <EmailIcon />,
+            href: 'mailto:abdurakhimovemir@gmail.com',
+            text: t('contact.email') + ': abdurakhimovemir@gmail.com',
+          }].map(({ icon, href, text }, index) => (
+            <Box
+              key={index}
               sx={{
-                color: '#1DA1F2',
-                fontSize: '1rem',
-                textDecoration: 'none',
-                '&:hover': { textDecoration: 'underline' },
+                display: 'flex',
+                flexDirection: isXs ? 'column' : 'row',
+                alignItems: 'center',
+                gap: isXs ? '0.25rem' : '0.5rem',
+                textAlign: isXs ? 'center' : 'left',
               }}
             >
-              {t('contact.telegram')}: @Emir_Q
-            </Link>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: isXs ? 'column' : 'row',
-              alignItems: 'center',
-              gap: isXs ? '0.25rem' : '0.5rem',
-              textAlign: isXs ? 'center' : 'left',
-            }}
-          >
-            <EmailIcon sx={{ color: '#fff', fontSize: isXs ? '3rem' : '2rem' }} />
-            <Link
-              href="mailto:abdurakhimovemir@gmail.com"
-              sx={{
-                color: '#fff',
-                fontSize: '1rem',
-                textDecoration: 'none',
-                '&:hover': { textDecoration: 'underline' },
-              }}
-            >
-              {t('contact.email')}: abdurakhimovemir@gmail.com
-            </Link>
-          </Box>
+              {React.cloneElement(icon, {
+                sx: { color: href.includes('mailto') ? '#fff' : '#1DA1F2', fontSize: isXs ? '3rem' : '2rem' },
+              })}
+              <Link
+                href={href}
+                target="_blank"
+                sx={{
+                  color: href.includes('mailto') ? '#fff' : '#1DA1F2',
+                  fontSize: '1rem',
+                  textDecoration: 'none',
+                  '&:hover': { textDecoration: 'underline' },
+                }}
+              >
+                {text}
+              </Link>
+            </Box>
+          ))}
         </Box>
+
+        {/* Форма */}
         <Box
           component="form"
           onSubmit={formik.handleSubmit}
@@ -144,77 +192,10 @@ const ContactSection: React.FC = () => {
             margin: '0 auto',
           }}
         >
-          <TextField
-            fullWidth
-            id="name"
-            name="name"
-            label={t('contact.form.name')}
-            variant="outlined"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
-            sx={{
-              backgroundColor: '#1e1e1e',
-              borderRadius: '12px',
-              '& .MuiOutlinedInput-root': {
-                color: '#fff',
-                borderRadius: '12px',
-              },
-              '& .MuiFormLabel-root': {
-                color: '#ccc',
-              },
-            }}
-          />
-          <TextField
-            fullWidth
-            id="email"
-            name="email"
-            label={t('contact.form.email')}
-            variant="outlined"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-            sx={{
-              backgroundColor: '#1e1e1e',
-              borderRadius: '12px',
-              '& .MuiOutlinedInput-root': {
-                color: '#fff',
-                borderRadius: '12px',
-              },
-              '& .MuiFormLabel-root': {
-                color: '#ccc',
-              },
-            }}
-          />
-          <TextField
-            fullWidth
-            id="message"
-            name="message"
-            label={t('contact.form.message')}
-            variant="outlined"
-            multiline
-            rows={4}
-            value={formik.values.message}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.message && Boolean(formik.errors.message)}
-            helperText={formik.touched.message && formik.errors.message}
-            sx={{
-              backgroundColor: '#1e1e1e',
-              borderRadius: '12px',
-              '& .MuiOutlinedInput-root': {
-                color: '#fff',
-                borderRadius: '12px',
-              },
-              '& .MuiFormLabel-root': {
-                color: '#ccc',
-              },
-            }}
-          />
+          {renderTextField('name', t('contact.form.name'))}
+          {renderTextField('email', t('contact.form.email'))}
+          {renderTextField('message', t('contact.form.message'), true, 4)}
+
           <Button
             type="submit"
             variant="contained"
@@ -223,12 +204,10 @@ const ContactSection: React.FC = () => {
               backgroundColor: loading ? '#aaa' : '#3f51b5',
               color: '#fff',
               margin: '0 auto',
-              display: 'block',
               padding: '0.5rem 1rem',
               fontSize: '0.85rem',
               fontWeight: '500',
               borderRadius: '12px',
-              textAlign: 'center',
               transition: 'all 0.3s ease',
               '&:hover': {
                 backgroundColor: loading ? '#aaa' : '#303f9f',
@@ -238,6 +217,8 @@ const ContactSection: React.FC = () => {
             {loading ? <CircularProgress size={24} sx={{ color: '#fff' }} /> : t('contact.form.submit')}
           </Button>
         </Box>
+
+        {/* Сообщение о результате */}
         {feedback && (
           <Typography
             variant="body1"
@@ -245,6 +226,7 @@ const ContactSection: React.FC = () => {
               marginTop: '1rem',
               color: feedback === t('contact.form.error') ? '#ff5722' : '#4caf50',
             }}
+            aria-live="polite"
           >
             {feedback}
           </Typography>

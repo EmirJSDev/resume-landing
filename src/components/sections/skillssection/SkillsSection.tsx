@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, Typography, Container } from '@mui/material';
+import { Box, Typography, Container, List, ListItem } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 const SkillsSection: React.FC = () => {
   const { t } = useTranslation();
 
-  const skills = t('skills.items', { returnObjects: true });
+  // Приведение типа результата t к string[]
+  const skills = t('skills.items', { returnObjects: true }) as string[];
 
   return (
     <Box
@@ -38,21 +39,32 @@ const SkillsSection: React.FC = () => {
         </Typography>
 
         {/* Список навыков */}
-        {Array.isArray(skills) &&
-          skills.map((skill, index) => (
-            <Typography
-              key={index}
-              variant="body1"
-              sx={{
-                fontSize: '1rem',
-                lineHeight: '1.75',
-                color: '#ccc',
-                marginBottom: '1rem',
-              }}
-            >
-              - {skill}
-            </Typography>
-          ))}
+        {Array.isArray(skills) && (
+          <List
+            sx={{
+              padding: 0,
+              margin: 0,
+            }}
+          >
+            {skills.map((skill, index) => (
+              <ListItem
+                key={index}
+                sx={{
+                  display: 'list-item',
+                  listStyleType: 'disc',
+                  listStylePosition: 'inside',
+                  padding: 0,
+                  marginBottom: '1rem',
+                  color: '#ccc',
+                  fontSize: '1rem',
+                  lineHeight: '1.75',
+                }}
+              >
+                {skill}
+              </ListItem>
+            ))}
+          </List>
+        )}
       </Container>
     </Box>
   );

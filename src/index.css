@@ -5,8 +5,38 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
-  background-color: #121212; /* Фон приложения */
+  overflow-x: hidden; /* Убираем горизонтальный скролл */
+  background-color: #121212; /* Темный фон приложения */
   font-family: 'Roboto', sans-serif; /* Глобальный шрифт */
-  color: #fff; /* Цвет текста */
+  color: #fff; /* Основной цвет текста */
+  line-height: 1.5; /* Улучшенная читаемость текста */
+  scroll-behavior: smooth; /* Плавная прокрутка */
+  -webkit-font-smoothing: antialiased; /* Улучшение рендеринга текста в браузерах WebKit */
+  -moz-osx-font-smoothing: grayscale; /* Сглаживание текста в macOS */
+  box-sizing: border-box; /* Глобальная модель расчета размеров */
+}
+
+/* Наследуем box-sizing для всех элементов */
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* Ограничиваем ширину изображений для адаптивности */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Улучшаем читаемость текста */
+p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Оптимизация списков */
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }

@@ -1,24 +1,31 @@
-/* Сбрасываем отступы для #root */
-#root {
+/* Сбрасываем отступы и стили по умолчанию */
+html, body, #root {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
   overflow-x: hidden; /* Убираем горизонтальный скролл */
   box-sizing: border-box; /* Для корректного расчета размеров */
+  scroll-behavior: smooth; /* Плавная прокрутка */
+  font-family: 'Roboto', sans-serif; /* Базовый шрифт */
 }
 
-/* Глобальные стили */
-* {
+/* Универсальные стили */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Включаем box-sizing для всех элементов */
+  box-sizing: inherit; /* Наследуем box-sizing */
 }
 
 /* Стили для ссылок */
 a {
   color: inherit; /* Наследуем цвет текста */
   text-decoration: none; /* Убираем подчеркивание */
+  transition: color 0.2s ease; /* Добавляем плавность при изменении цвета */
+}
+
+a:hover {
+  text-decoration: underline; /* Указываем эффект при наведении */
 }
 
 /* Стили для кнопок */
@@ -28,6 +35,11 @@ button {
   border: none;
   cursor: pointer;
   color: inherit;
+  transition: opacity 0.2s ease; /* Эффект при наведении */
+}
+
+button:hover {
+  opacity: 0.8; /* Добавляем визуальный отклик */
 }
 
 /* Адаптивные отступы для маленьких экранов */
@@ -36,4 +48,19 @@ button {
     padding: 0 1rem; /* Уменьшаем padding */
     overflow-x: hidden; /* Гарантируем отсутствие скролла */
   }
+}
+
+/* Дополнительные улучшения */
+img {
+  max-width: 100%; /* Гарантируем адаптивность изображений */
+  height: auto;
+  display: block;
+}
+
+ul, ol {
+  list-style: none; /* Убираем маркеры списка */
+}
+
+input, textarea {
+  font-family: inherit; /* Наследуем шрифт для форм */
 }

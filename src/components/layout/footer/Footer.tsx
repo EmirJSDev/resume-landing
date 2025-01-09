@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
   return (
     <Box
       sx={{
-        backgroundColor: '#121212',
+        backgroundColor: '#121212', // Фиксированный цвет для секции
         color: '#fff',
         padding: '2rem 0',
         textAlign: 'center',
@@ -27,6 +27,8 @@ const Footer: React.FC = () => {
       >
         {t('footer.copyright')}
       </Typography>
+
+      {/* Социальные иконки */}
       <Box
         sx={{
           display: 'flex',
@@ -35,34 +37,44 @@ const Footer: React.FC = () => {
           marginBottom: '1rem',
         }}
       >
-        {/* Иконка Instagram */}
         <IconButton
           component={Link}
           href="https://www.instagram.com/emir_qtm/profilecard/?igsh=MXhsNGFraDlydzl6ZQ=="
           target="_blank"
-          sx={{ color: '#fff', '&:hover': { color: '#E4405F' } }}
+          aria-label="Instagram"
+          sx={{
+            color: '#fff',
+            '&:hover': { color: '#E4405F' }, // Цвет Instagram
+          }}
         >
           <InstagramIcon />
         </IconButton>
-        {/* Иконка LinkedIn */}
         <IconButton
           component={Link}
           href="https://linkedin.com/in/emir-abdurakhimov-7b008225a"
           target="_blank"
-          sx={{ color: '#fff', '&:hover': { color: '#0077B5' } }}
+          aria-label="LinkedIn"
+          sx={{
+            color: '#fff',
+            '&:hover': { color: '#0077B5' }, // Цвет LinkedIn
+          }}
         >
           <LinkedInIcon />
         </IconButton>
-        {/* Иконка GitHub */}
         <IconButton
           component={Link}
           href="https://github.com/EmirJSDev"
           target="_blank"
-          sx={{ color: '#fff', '&:hover': { color: '#333' } }}
+          aria-label="GitHub"
+          sx={{
+            color: '#fff',
+            '&:hover': { color: '#333' }, // Цвет GitHub
+          }}
         >
           <GitHubIcon />
         </IconButton>
       </Box>
+
       {/* Дополнительный текст */}
       <Typography
         variant="body2"

@@ -1,23 +1,25 @@
 import React from 'react';
-import { Box, Typography, Container } from '@mui/material';
+import { Box, Typography, Container, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 const AboutSection: React.FC = () => {
   const { t } = useTranslation();
+  const theme = useTheme();
 
   return (
     <Box
       sx={{
-        backgroundColor: '#121212',
-        color: '#fff',
-        padding: '4rem 0',
+        backgroundColor: '#121212', // Сохраняем фон
+        color: '#fff', // Цвет текста
+        padding: '4rem 0', // Используем отступы как в старом коде
       }}
     >
       <Container
         maxWidth={false}
         sx={{
-          maxWidth: '970px',
+          maxWidth: '970px', // Центрирование контейнера как в старом коде
           margin: '0 auto',
+          padding: theme.spacing(0, 2), // Адаптивные отступы
         }}
       >
         <Typography
@@ -26,7 +28,7 @@ const AboutSection: React.FC = () => {
             fontWeight: 'bold',
             textTransform: 'uppercase',
             fontSize: '1rem',
-            color: '#ccc',
+            color: '#ccc', // Сохраняем цвет из старого кода
             letterSpacing: '0.1rem',
             marginBottom: '1.5rem',
           }}
