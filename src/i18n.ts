@@ -9,12 +9,12 @@ i18n
   .use(initReactI18next) // Интеграция с React
   .init({
     fallbackLng: 'en', // Язык по умолчанию
-    debug: false,
+    debug: true,
     interpolation: {
       escapeValue: false, // React сам экранирует данные
     },
     backend: {
-      loadPath: '/src/locales/{{lng}}/translation.json', // Путь до файлов с переводами
+      loadPath: '/locales/{{lng}}/translation.json', // Путь до файлов с переводами
     },
     detection: {
       order: ['path', 'cookie', 'localStorage', 'navigator'], // Определение языка из пути URL

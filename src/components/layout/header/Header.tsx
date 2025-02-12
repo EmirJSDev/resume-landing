@@ -13,6 +13,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTranslation } from "react-i18next";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // Для навигации
 
 const scrollToSection = (id: string) => {
   const section = document.getElementById(id);
@@ -26,11 +27,13 @@ const Header: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Используем breakpoint для мобильных устройств
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate(); // Для программной навигации
 
   const toggleLanguage = async () => {
     const newLang = i18n.language === "en" ? "ru" : "en";
     try {
       await i18n.changeLanguage(newLang);
+      navigate(`/${newLang}`); // Меняем URL на /en или /ru
     } catch (error) {
       console.error("Error changing language:", error);
     }

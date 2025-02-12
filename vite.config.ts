@@ -12,17 +12,12 @@ export default defineConfig({
     port: 3000, // Устанавливаем порт для разработки
     open: true, // Автоматическое открытие браузера
     cors: true, // Разрешаем запросы с других источников
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8000', // Адрес PHP-бэкенда
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ''), // Удаляем /api из запроса, если нужно
-      },
+    fs: {
+      allow: ['public'],  // Убедитесь, что папка public доступна для сервера
     },
   },
   build: {
-    outDir: '../public', // Папка, куда будет генерироваться сборка (может быть изменена на ваш путь)
+    outDir: 'dist', // Папка вывода должна быть dist
     emptyOutDir: true, // Удаление старых файлов перед сборкой
     sourcemap: true, // Генерация source maps для удобной отладки
     rollupOptions: {

@@ -22,15 +22,15 @@
   "experience": {
     "title": "Professional Experience",
     "nextSlack": "Frontend Developer – NextSlack",
-    "nextSlackTime": "Sep 2023 – Present | Moscow, Russia",
+    "nextSlackTime": "Sep 2023 – Present",
     "nextSlackDetails": [
       "Developed a face recognition system and implemented biometric authentication modules.",
       "Designed and developed CRUD admin panels for managing user activities and permissions.",
       "Created a landing page with advanced form functionalities for capturing user applications.",
       "Redesigned the user interface and improved existing chat functionality."
     ],
-    "sportForum": "Fullstack Developer – Company 'СПОРТ ФОРУМ'",
-    "sportForumTime": "Apr 2022 – Jun 2023 | Moscow, Russia",
+    "sportForum": "Fullstack Developer – Company 'Sport Forum'",
+    "sportForumTime": "Apr 2022 – Jun 2023",
     "sportForumDetails": [
       "Deployed applications using Docker with Nginx and implemented CI/CD pipelines.",
       "Created multi-language support with i18n and developed custom admin panels.",
@@ -38,7 +38,7 @@
       "Tested applications using React Testing Library and Jest."
     ],
     "academy": "Frontend Development Training – Academy 'ШАГ'",
-    "academyTime": "2021 | Moscow, Russia",
+    "academyTime": "2021",
     "academyDetails": [
       "Completed a professional frontend development course.",
       "Specialized in React, TypeScript, and Material-UI, focusing on responsive and accessible design."
