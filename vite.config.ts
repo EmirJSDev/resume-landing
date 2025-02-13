@@ -1,30 +1,31 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': '/src', // Устанавливаем алиас для удобного импорта файлов из src
+      "@": path.resolve(__dirname, "src"),
     },
   },
   server: {
-    port: 3000, // Устанавливаем порт для разработки
-    open: true, // Автоматическое открытие браузера
-    cors: true, // Разрешаем запросы с других источников
+    port: 3000,
+    open: true,
+    cors: true,
     fs: {
-      allow: ['public'],  // Убедитесь, что папка public доступна для сервера
+      allow: ["public", "src"],
     },
   },
   build: {
-    outDir: 'dist', // Папка вывода должна быть dist
-    emptyOutDir: true, // Удаление старых файлов перед сборкой
-    sourcemap: true, // Генерация source maps для удобной отладки
+    outDir: "dist",
+    emptyOutDir: true,
+    sourcemap: true,
     rollupOptions: {
       output: {
-        assetFileNames: 'assets/[name].[hash][extname]', // Настраиваем файлы ассетов
-        chunkFileNames: 'assets/[name].[hash].js', // JS-чанки
-        entryFileNames: 'assets/[name].[hash].js', // Входные точки
+        assetFileNames: "assets/[name].[hash][extname]",
+        chunkFileNames: "assets/[name].[hash].js",
+        entryFileNames: "assets/[name].[hash].js",
       },
     },
   },

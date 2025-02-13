@@ -1,28 +1,28 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import HttpApi from 'i18next-http-backend';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import HttpApi from "i18next-http-backend";
 
 i18n
-  .use(HttpApi) // Подключение динамической загрузки
-  .use(LanguageDetector) // Определение языка
-  .use(initReactI18next) // Интеграция с React
+  .use(HttpApi)
+  .use(LanguageDetector)
+  .use(initReactI18next)
   .init({
-    fallbackLng: 'en', // Язык по умолчанию
+    fallbackLng: "en",
     debug: true,
     interpolation: {
-      escapeValue: false, // React сам экранирует данные
+      escapeValue: false,
     },
     backend: {
-      loadPath: '/locales/{{lng}}/translation.json', // Путь до файлов с переводами
+      loadPath: "/locales/{{lng}}/translation.json",
     },
     detection: {
-      order: ['path', 'cookie', 'localStorage', 'navigator'], // Определение языка из пути URL
-      lookupFromPathIndex: 0, // Язык определяется из первой части пути
-      caches: ['localStorage', 'cookie'], // Кэширование настроек языка
+      order: ["path", "localStorage", "cookie", "navigator"],
+      lookupFromPathIndex: 0,
+      caches: ["localStorage", "cookie"],
     },
     react: {
-      useSuspense: true, // Включение Suspense для ожидания загрузки переводов
+      useSuspense: false, // ✅ Исправлено, чтобы избежать ошибки с `Suspense`
     },
   });
 

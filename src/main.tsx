@@ -1,11 +1,18 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import './i18n'; // Подключение i18n
-import App from './App.tsx';
+import React, { Suspense } from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./i18n"; // ✅ Импорт i18n перед рендерингом
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+const rootElement = document.getElementById("root");
+
+if (rootElement) {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <Suspense fallback={<div>Loading...</div>}>
+        <App />
+      </Suspense>
+    </React.StrictMode>
+  );
+} else {
+  console.error("Ошибка: элемент #root не найден.");
+}
