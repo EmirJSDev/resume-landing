@@ -1,6 +1,9 @@
 import React, { useEffect, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "./theme";
 
 import Header from "./components/layout/header/Header";
 import Footer from "./components/layout/footer/Footer";
@@ -11,48 +14,53 @@ import SkillsSection from "./components/sections/skillssection/SkillsSection";
 import ContactSection from "./components/sections/contactsection/ContactSection";
 
 const App: React.FC = () => {
+  console.log("Routes is rendering");
   return (
-    <Suspense fallback={<div>Loading translations...</div>}>
-      <Router>
-        <LanguageHandler />
-        <Header />
-        <Routes>
-          <Route path="/" element={<Navigate to="/en" replace />} />
-          <Route path="/:lang(en|ru)" element={<MainContentWrapper />} />
-          <Route path="*" element={<Navigate to="/en" replace />} />
-        </Routes>
-        <Footer />
-      </Router>
-    </Suspense>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Suspense fallback={<div>Loading translations...</div>}>
+        <Router>
+          <LanguageHandler />
+          <Header />
+          <Routes>
+            <Route path="/" element={<Navigate to="/en" replace />} />
+            {/* ✅ Рендерим MainContent напрямую */}
+            <Route path="/en" element={<MainContent />} />
+            <Route path="/ru" element={<MainContent />} />
+            <Route path="*" element={<Navigate to="/en" replace />} />
+          </Routes>
+          <Footer />
+        </Router>
+      </Suspense>
+    </ThemeProvider>
   );
 };
 
-// Обработчик смены языка
 const LanguageHandler: React.FC = () => {
   const { i18n } = useTranslation();
   const location = useLocation();
 
   useEffect(() => {
+    if (!i18n.isInitialized) return;
     const lang = location.pathname.split("/")[1];
     if (lang && lang !== i18n.language) {
-      i18n.changeLanguage(lang).catch((error) => {
-        console.error("Ошибка смены языка:", error);
-      });
+      i18n.changeLanguage(lang).catch(console.error);
     }
   }, [location, i18n]);
 
   return null;
 };
 
-// Обертка для `MainContent`, чтобы передавать `lang` через `useParams`
-const MainContentWrapper: React.FC = () => {
-  const { lang } = useParams<{ lang: string }>();
-  return lang ? <MainContent lang={lang} /> : <Navigate to="/en" replace />;
-};
+const MainContent: React.FC = () => {
+  const { i18n } = useTranslation();
+  const params = useParams<{ lang?: string }>();
+  const lang = params.lang || "en";
 
-// Основное содержимое страницы
-const MainContent: React.FC<{ lang: string }> = ({ lang }) => {
   console.log("Отображение MainContent для языка:", lang);
+
+  if (!i18n.isInitialized) {
+    return <div>Loading content...</div>;
+  }
 
   return (
     <main>

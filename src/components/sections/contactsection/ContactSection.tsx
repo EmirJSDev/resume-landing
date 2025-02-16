@@ -30,16 +30,9 @@ const ContactSection: React.FC = () => {
   const [feedback, setFeedback] = useState<string | null>(null);
 
   const validationSchema = yup.object({
-    name: yup
-      .string()
-      .required(`${t('contact.form.name')} ${t('contact.form.required')}`),
-    email: yup
-      .string()
-      .email(`${t('contact.form.email')} ${t('contact.form.invalid')}`)
-      .required(`${t('contact.form.email')} ${t('contact.form.required')}`),
-    message: yup
-      .string()
-      .required(`${t('contact.form.message')} ${t('contact.form.required')}`),
+    name: yup.string().required(''),
+    email: yup.string().email('').required(''),
+    message: yup.string().required(''),
   });
 
   const formik = useFormik<FormValues>({
@@ -53,7 +46,7 @@ const ContactSection: React.FC = () => {
       setLoading(true);
       setFeedback(null);
       try {
-        await axios.post('https://abdurakhimov.info/sendmail.php', values, {
+        await axios.post('https://abdurakhimov.info/backend/sendmail.php', values, {
           headers: { 'Content-Type': 'application/json' },
         });
         setFeedback(t('contact.form.success'));
@@ -67,9 +60,9 @@ const ContactSection: React.FC = () => {
     },
   });
 
-  // Функция для рендера полей формы с типизацией
+  // Функция для рендера полей формы без выделения ошибки
   const renderTextField = (
-    id: keyof FormValues, // Указание, что id соответствует ключам FormValues
+    id: keyof FormValues,
     label: string,
     multiline = false,
     rows = 1
@@ -80,11 +73,11 @@ const ContactSection: React.FC = () => {
       name={id}
       label={label}
       variant="outlined"
-      value={formik.values[id]} // Гарантируется, что id существует в formik.values
+      value={formik.values[id]}
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
-      error={formik.touched[id] && Boolean(formik.errors[id])}
-      helperText={formik.touched[id] && formik.errors[id]}
+      error={false} // Отключает красную обводку
+      helperText="" // Отключает сообщение об ошибке
       multiline={multiline}
       rows={rows}
       sx={{
@@ -93,6 +86,15 @@ const ContactSection: React.FC = () => {
         '& .MuiOutlinedInput-root': {
           color: '#fff',
           borderRadius: '12px',
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#666', // Делаем рамку нейтрального цвета
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#999', // Чуть ярче при наведении
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#3f51b5', // Цвет рамки при фокусе
+          },
         },
         '& .MuiFormLabel-root': {
           color: '#ccc',
@@ -141,7 +143,6 @@ const ContactSection: React.FC = () => {
             gap: '1rem',
           }}
         >
-          {/* Контактные элементы (Telegram, Email) */}
           {[{
             icon: <TelegramIcon />,
             href: 'https://t.me/Emir_Q',

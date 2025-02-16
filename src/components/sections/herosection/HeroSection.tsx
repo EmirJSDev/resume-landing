@@ -51,7 +51,7 @@ const HeroSection: React.FC = () => {
       >
         {/* Аватар */}
         <Avatar
-          src="/assets/images/avatar.webp"
+          src="src/assets/images/avatar.webp"
           sx={{
             width: '200px',
             height: '200px',

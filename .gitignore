@@ -1,5 +1,14 @@
-# Logs
-logs
+# Исключение директорий сборки
+dist/
+dist-ssr/
+out/
+build/
+
+# Node.js модули
+node_modules/
+
+# Файлы логов
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,18 +16,45 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Переменные среды и конфигурационные файлы
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+.vite-env.d.ts
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
+# Файлы временных сборок TypeScript
+*.tsbuildinfo
+*.d.ts.map
+
+# Конфигурации IDE и редакторов
+.idea/
+.vscode/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# MacOS системные файлы
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows системные файлы
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Eslint, Prettier, Husky
+.eslintcache
+.prettier
+.husky/_
+
+# Storybook, если используешь
+storybook-static/
+
+# Если используешь PM2
+pm2.log

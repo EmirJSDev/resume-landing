@@ -9,7 +9,7 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: "en",
-    debug: true,
+    debug: true, // Включаем для отладки
     interpolation: {
       escapeValue: false,
     },
@@ -22,7 +22,7 @@ i18n
       caches: ["localStorage", "cookie"],
     },
     react: {
-      useSuspense: false, // ✅ Исправлено, чтобы избежать ошибки с `Suspense`
+      useSuspense: true, // ✅ Обязательно включить для `Suspense`
     },
   });
 
