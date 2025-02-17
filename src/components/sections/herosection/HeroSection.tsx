@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Avatar, Link, Container } from '@mui/material';
+import { Box, Typography, Link, Container } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -35,8 +35,8 @@ const HeroSection: React.FC = () => {
   return (
     <Box
       sx={{
-        backgroundColor: '#121212', // Фиксированный фон
-        color: '#fff', // Основной цвет текста
+        backgroundColor: '#121212',
+        color: '#fff',
         padding: '4rem 0',
         paddingTop: '10rem',
       }}
@@ -44,17 +44,21 @@ const HeroSection: React.FC = () => {
       <Container
         maxWidth={false}
         sx={{
-          maxWidth: '970px', // Центрирование контейнера
+          maxWidth: '970px',
           margin: '0 auto',
           textAlign: 'center',
         }}
       >
-        {/* Аватар */}
-        <Avatar
-          src="src/assets/images/avatar.webp"
-          sx={{
-            width: '200px',
-            height: '200px',
+        {/* Оптимизированный аватар */}
+        <img
+          src="/images/avatar.webp"
+          alt="Emir Abdurakhimov"
+          loading="lazy"
+          width={200}
+          height={200}
+          style={{
+            display: 'block',
+            borderRadius: '50%',
             border: '3px solid #ff5722',
             margin: '0 auto 1.5rem auto',
           }}
@@ -99,6 +103,7 @@ const HeroSection: React.FC = () => {
               key={label}
               href={href}
               target="_blank"
+              rel="noopener noreferrer"
               sx={{
                 display: 'flex',
                 alignItems: 'center',

@@ -46,6 +46,7 @@ const theme = createTheme({
           lineHeight: 1.5,
           scrollBehavior: "smooth",
           boxSizing: "border-box",
+          userSelect: "none", // Отключает выделение на всей странице
         },
         body: {
           margin: 0,
@@ -56,6 +57,7 @@ const theme = createTheme({
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          userSelect: "none", // Отключает выделение внутри body
         },
         "#root": {
           minHeight: "100vh",
@@ -68,6 +70,7 @@ const theme = createTheme({
           boxSizing: "inherit",
           margin: 0,
           padding: 0,
+          userSelect: "none", // Глобальное отключение выделения
         },
         img: {
           maxWidth: "100%",

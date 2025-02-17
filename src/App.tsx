@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ThemeProvider } from "@mui/material/styles";
@@ -7,24 +7,24 @@ import theme from "./theme";
 
 import Header from "./components/layout/header/Header";
 import Footer from "./components/layout/footer/Footer";
-import HeroSection from "./components/sections/herosection/HeroSection";
-import AboutSection from "./components/sections/aboutsection/AboutSection";
-import ExperienceSection from "./components/sections/experiencesection/ExperienceSection";
-import SkillsSection from "./components/sections/skillssection/SkillsSection";
-import ContactSection from "./components/sections/contactsection/ContactSection";
+
+// ✅ Ленивые загрузки секций
+const HeroSection = lazy(() => import("./components/sections/herosection/HeroSection"));
+const AboutSection = lazy(() => import("./components/sections/aboutsection/AboutSection"));
+const ExperienceSection = lazy(() => import("./components/sections/experiencesection/ExperienceSection"));
+const SkillsSection = lazy(() => import("./components/sections/skillssection/SkillsSection"));
+const ContactSection = lazy(() => import("./components/sections/contactsection/ContactSection"));
 
 const App: React.FC = () => {
-  console.log("Routes is rendering");
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Suspense fallback={<div>Loading translations...</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
         <Router>
           <LanguageHandler />
           <Header />
           <Routes>
             <Route path="/" element={<Navigate to="/en" replace />} />
-            {/* ✅ Рендерим MainContent напрямую */}
             <Route path="/en" element={<MainContent />} />
             <Route path="/ru" element={<MainContent />} />
             <Route path="*" element={<Navigate to="/en" replace />} />
@@ -64,21 +64,23 @@ const MainContent: React.FC = () => {
 
   return (
     <main>
-      <section id="hero" aria-labelledby="hero-title">
-        <HeroSection />
-      </section>
-      <section id="about" aria-labelledby="about-title">
-        <AboutSection />
-      </section>
-      <section id="experience" aria-labelledby="experience-title">
-        <ExperienceSection />
-      </section>
-      <section id="skills" aria-labelledby="skills-title">
-        <SkillsSection />
-      </section>
-      <section id="contacts" aria-labelledby="contacts-title">
-        <ContactSection />
-      </section>
+      <Suspense fallback={<div>Loading section...</div>}>
+        <section id="hero" aria-labelledby="hero-title">
+          <HeroSection />
+        </section>
+        <section id="about" aria-labelledby="about-title">
+          <AboutSection />
+        </section>
+        <section id="experience" aria-labelledby="experience-title">
+          <ExperienceSection />
+        </section>
+        <section id="skills" aria-labelledby="skills-title">
+          <SkillsSection />
+        </section>
+        <section id="contacts" aria-labelledby="contacts-title">
+          <ContactSection />
+        </section>
+      </Suspense>
     </main>
   );
 };
