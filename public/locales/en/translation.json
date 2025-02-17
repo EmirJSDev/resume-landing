@@ -37,7 +37,7 @@
       "Built scalable forms and optimized user interfaces for fitness centers.",
       "Tested applications using React Testing Library and Jest."
     ],
-    "academy": "Frontend Development Training – Academy 'ШАГ'",
+    "academy": "Frontend Development Training – Academy 'STEP'",
     "academyTime": "2021",
     "academyDetails": [
       "Completed a professional frontend development course.",
@@ -72,7 +72,7 @@
     }
   },
   "footer": {
-    "copyright": "© 2024 Emir Abdurakhimov. All rights reserved.",
+    "copyright": "© 2025 Emir Abdurakhimov. All rights reserved.",
     "built": "Built with React & Material-UI."
   }
 }

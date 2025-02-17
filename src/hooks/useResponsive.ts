@@ -11,7 +11,7 @@ const useResponsive = () => {
     isXl: useMediaQuery(theme.breakpoints.up("xl")),
     isUpSm: useMediaQuery(theme.breakpoints.up("sm")), // >= sm
     isUpMd: useMediaQuery(theme.breakpoints.up("md")), // >= md
-    isDownMd: useMediaQuery(theme.breakpoints.down("md")), // <= md
+    isDownMd: useMediaQuery(theme.breakpoints.down("md")), // ✅ <= 900px (нужный брейкпоинт)
   };
 };
 

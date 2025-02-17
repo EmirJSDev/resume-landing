@@ -1,9 +1,11 @@
-import React from 'react';
-import { Box, Typography, Container } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { Box, Typography, Container } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import useResponsive from "../../../hooks/useResponsive";
 
 const ExperienceSection: React.FC = () => {
   const { t } = useTranslation();
+  const { isXs, isSm } = useResponsive(); // ✅ Добавил адаптивность
 
   // Функция для отображения секции опыта
   const renderExperienceItem = (
@@ -14,13 +16,13 @@ const ExperienceSection: React.FC = () => {
     const details = t(detailsKey, { returnObjects: true });
 
     return (
-      <Box sx={{ marginBottom: '2rem' }}>
+      <Box sx={{ marginBottom: isXs ? "1.5rem" : "2rem" }}>
         <Typography
           variant="h5"
           sx={{
-            fontWeight: 'bold',
-            fontSize: '1.25rem',
-            marginBottom: '0.5rem',
+            fontWeight: "bold",
+            fontSize: isXs ? "1rem" : isSm ? "1.1rem" : "1.25rem",
+            marginBottom: "0.5rem",
           }}
         >
           {t(titleKey)}
@@ -28,9 +30,9 @@ const ExperienceSection: React.FC = () => {
         <Typography
           variant="body2"
           sx={{
-            fontSize: '0.9rem',
-            color: '#ccc',
-            marginBottom: '0.5rem',
+            fontSize: isXs ? "0.8rem" : "0.9rem",
+            color: "#ccc",
+            marginBottom: "0.5rem",
           }}
         >
           {t(timeKey)}
@@ -38,9 +40,9 @@ const ExperienceSection: React.FC = () => {
         <Typography
           variant="body1"
           sx={{
-            fontSize: '1rem',
-            lineHeight: '1.75',
-            color: '#ccc',
+            fontSize: isXs ? "0.9rem" : "1rem",
+            lineHeight: "1.75",
+            color: "#ccc",
           }}
         >
           {Array.isArray(details)
@@ -59,46 +61,47 @@ const ExperienceSection: React.FC = () => {
   return (
     <Box
       sx={{
-        backgroundColor: '#121212',
-        color: '#fff',
-        padding: '4rem 0',
+        backgroundColor: "#121212",
+        color: "#fff",
+        padding: isXs ? "3rem 0" : "4rem 0", // ✅ Уменьшаем отступы на мобилках
       }}
     >
       <Container
         maxWidth={false}
         sx={{
-          maxWidth: '970px',
-          margin: '0 auto',
+          maxWidth: "970px",
+          margin: "0 auto",
+          padding: isXs ? "0 1rem" : isSm ? "0 2rem" : "0 3rem", // ✅ Гибкие отступы
         }}
       >
         <Typography
           variant="h6"
           sx={{
-            fontWeight: 'bold',
-            textTransform: 'uppercase',
-            fontSize: '1rem',
-            color: '#ccc',
-            letterSpacing: '0.1rem',
-            marginBottom: '1.5rem',
+            fontWeight: "bold",
+            textTransform: "uppercase",
+            fontSize: isXs ? "0.9rem" : "1rem", // ✅ Меньше заголовок на мобилках
+            color: "#ccc",
+            letterSpacing: "0.1rem",
+            marginBottom: "1.5rem",
           }}
         >
-          {t('experience.title')}
+          {t("experience.title")}
         </Typography>
 
         {renderExperienceItem(
-          'experience.nextSlack',
-          'experience.nextSlackTime',
-          'experience.nextSlackDetails'
+          "experience.nextSlack",
+          "experience.nextSlackTime",
+          "experience.nextSlackDetails"
         )}
         {renderExperienceItem(
-          'experience.sportForum',
-          'experience.sportForumTime',
-          'experience.sportForumDetails'
+          "experience.sportForum",
+          "experience.sportForumTime",
+          "experience.sportForumDetails"
         )}
         {renderExperienceItem(
-          'experience.academy',
-          'experience.academyTime',
-          'experience.academyDetails'
+          "experience.academy",
+          "experience.academyTime",
+          "experience.academyDetails"
         )}
       </Container>
     </Box>

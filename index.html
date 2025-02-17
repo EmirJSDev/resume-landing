@@ -18,7 +18,7 @@
   <meta name="author" content="Эмир Абдурахимов" />
   <meta name="robots" content="index, follow" />
 
-  <!-- Open Graph (Facebook, LinkedIn) -->
+  <!-- Оптимизация для социальных сетей (Open Graph, Twitter Card) -->
   <meta property="og:title" content="Эмир Абдурахимов | Middle Frontend Developer" />
   <meta property="og:description" content="Middle Frontend разработчик, специализируюсь на React, TypeScript и Material-UI. Создаю масштабируемые и эстетичные веб-приложения." />
   <meta property="og:image" content="/images/preview.webp" />
@@ -27,7 +27,6 @@
   <meta property="og:url" content="https://www.abdurakhimov.info" />
   <meta property="og:type" content="website" />
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Эмир Абдурахимов | Middle Frontend Developer" />
   <meta name="twitter:description" content="Middle Frontend разработчик, специализируюсь на React, TypeScript и Material-UI. Создаю масштабируемые и эстетичные веб-приложения." />
@@ -40,7 +39,13 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"></noscript>
 
   <!-- Предзагрузка изображений -->
-  <link rel="preload" href="/images/preview.webp" as="image" />
+  <link rel="preload" href="/images/preview.webp" as="image" type="image/webp" />
+
+  <!-- Предзагрузка DNS для внешних ресурсов (например, Google Fonts) -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
+  <!-- Кэширование статических ресурсов -->
+  <link rel="preload" href="/favicon.ico" as="image" />
 
   <style>
       body {
