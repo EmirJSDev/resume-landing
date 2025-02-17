@@ -1,9 +1,20 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import viteImagemin from "vite-plugin-imagemin";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    viteImagemin({
+      webp: {
+        quality: 75, // Оптимальная компрессия (0-100)
+        method: 6, // Метод сжатия (0 - быстрее, 6 - лучше)
+        lossless: false, // Если true — без потерь
+        metadata: "none", // Убирает метаданные EXIF
+      },
+    }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
